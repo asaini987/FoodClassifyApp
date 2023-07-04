@@ -1,0 +1,75 @@
+//
+//  LogInView.swift
+//  RecipeAI
+//
+//  Created on 6/27/23.
+//
+
+import SwiftUI
+
+struct LoginView: View {
+    @State private var username = ""
+    @State private var password = ""
+    
+    var body: some View {
+        VStack {
+            Image(systemName: "person.circle.fill")
+                .resizable()
+                .scaledToFit()
+                .frame(width: DrawingConstants.symWidth, height: DrawingConstants.symHeight)
+                .foregroundColor(.blue)
+            
+            Text("Sign In")
+                .font(.system(.largeTitle, design: .rounded))
+                .fontWeight(.medium)
+                .foregroundColor(.blue)
+            
+            Group {
+                TextField("Email Address", text: $username)
+                SecureField("Password", text: $password)
+            }
+            
+            .fontWeight(.medium)
+            .textInputAutocapitalization(.never)
+            .disableAutocorrection(true)
+            .textFieldStyle(.roundedBorder)
+            .overlay(RoundedRectangle(cornerRadius: DrawingConstants.fieldCornerRadius).strokeBorder(lineWidth: DrawingConstants.fieldLineWidth))
+            
+            Spacer()
+            
+            logInButton
+        }
+        
+        .padding()
+    }
+    
+    var logInButton: some View {
+        Button {
+            print("logged in")
+        } label: {
+            Text("Login")
+                .font(.system(size: DrawingConstants.buttonFont))
+                .fontWeight(.medium)
+        }
+        .padding()
+        .frame(width: DrawingConstants.buttonWidth)
+        .background(.blue)
+        .foregroundStyle(.white)
+        .clipShape(Capsule())
+    }
+    
+    private struct DrawingConstants {
+        static let symWidth: CGFloat = 150
+        static let symHeight: CGFloat = 200
+        static let fieldCornerRadius: CGFloat = 10
+        static let fieldLineWidth: CGFloat = 1
+        static let buttonFont: CGFloat = 20
+        static let buttonWidth: CGFloat = 300
+    }
+}
+
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        LoginView()
+    }
+}
