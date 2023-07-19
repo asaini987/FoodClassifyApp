@@ -61,13 +61,13 @@ struct LoginView: View {
             }
         } label: {
             Text("Login")
+                .foregroundColor(.white)
                 .font(.system(size: DrawingConstants.buttonFont))
                 .fontWeight(.medium)
                 .padding()
                 .frame(maxWidth: .infinity)
                 .frame(height: DrawingConstants.buttonHeight)
                 .background(.blue)
-                .foregroundStyle(.white)
                 .clipShape(Capsule())
         }
     }
