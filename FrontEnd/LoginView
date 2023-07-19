@@ -8,55 +8,68 @@
 import SwiftUI
 
 struct LoginView: View {
-    @State private var username = ""
+    @State private var email = ""
     @State private var password = ""
+    @StateObject private var authViewModel = AuthViewModel()
     
     var body: some View {
-        VStack {
-            //add RecipeAI banner to the top
-            Image(systemName: "person.circle.fill")
-                .resizable()
-                .scaledToFit()
-                .frame(width: DrawingConstants.symWidth, height: DrawingConstants.symHeight)
-                .foregroundColor(.blue)
-            
-            Text("Sign In")
-                .font(.system(.largeTitle, design: .rounded))
+        NavigationStack {
+            VStack {
+                Image(systemName: "person.circle.fill")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: DrawingConstants.symWidth, height: DrawingConstants.symHeight)
+                    .foregroundColor(.blue)
+                
+                Text("Sign In")
+                    .font(.system(.largeTitle, design: .rounded))
+                    .fontWeight(.medium)
+                    .foregroundColor(.blue)
+                
+                Group {
+                    TextField("Email Address", text: $email)
+                    SecureField("Password", text: $password)
+                }
                 .fontWeight(.medium)
-                .foregroundColor(.blue)
-            
-            Group {
-                TextField("Email Address", text: $username)
-                SecureField("Password", text: $password)
+                .textInputAutocapitalization(.never)
+                .disableAutocorrection(true)
+                .textFieldStyle(.roundedBorder)
+                .overlay(RoundedRectangle(cornerRadius: DrawingConstants.fieldCornerRadius).strokeBorder(lineWidth: DrawingConstants.fieldLineWidth))
+                
+                Spacer()
+                
+                logInButton
             }
-            
-            .fontWeight(.medium)
-            .textInputAutocapitalization(.never)
-            .disableAutocorrection(true)
-            .textFieldStyle(.roundedBorder)
-            .overlay(RoundedRectangle(cornerRadius: DrawingConstants.fieldCornerRadius).strokeBorder(lineWidth: DrawingConstants.fieldLineWidth))
-            
-            Spacer()
-            
-            logInButton
         }
-        
         .padding()
+        .toolbar(.hidden, for: .navigationBar)
+        .navigationDestination(isPresented: $authViewModel.validAuth) {
+            Text("You have successfully signed in")
+        }
     }
     
     var logInButton: some View {
         Button {
-            print("logged in")
+            guard !email.isEmpty && !password.isEmpty else {
+                return
+            }
+            Task {
+                await authViewModel.signIn(email: email, password: password)
+            }
+            guard authViewModel.validAuth else {
+                return
+            }
         } label: {
             Text("Login")
                 .font(.system(size: DrawingConstants.buttonFont))
                 .fontWeight(.medium)
+                .padding()
+                .frame(maxWidth: .infinity)
+                .frame(height: DrawingConstants.buttonHeight)
+                .background(.blue)
+                .foregroundStyle(.white)
+                .clipShape(Capsule())
         }
-        .padding()
-        .frame(width: DrawingConstants.buttonWidth)
-        .background(.blue)
-        .foregroundStyle(.white)
-        .clipShape(Capsule())
     }
     
     private struct DrawingConstants {
@@ -65,12 +78,6 @@ struct LoginView: View {
         static let fieldCornerRadius: CGFloat = 10
         static let fieldLineWidth: CGFloat = 1
         static let buttonFont: CGFloat = 20
-        static let buttonWidth: CGFloat = 300
-    }
-}
-
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        LoginView()
+        static let buttonHeight: CGFloat = 55
     }
 }
