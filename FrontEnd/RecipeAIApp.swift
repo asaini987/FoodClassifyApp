@@ -1,17 +1,24 @@
-//
-//  RecipeAIApp.swift
-//  RecipeAI
-//
-//  Created on 6/27/23.
-//
-
 import SwiftUI
+import Firebase
+import FirebaseAuth
+
+class AppDelegate: NSObject, UIApplicationDelegate {
+    func application(_ application: UIApplication,
+                   didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
+    FirebaseApp.configure()
+    return true
+        
+    }
+}
 
 @main
 struct RecipeAIApp: App {
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
+    @StateObject var authViewModel = AuthViewModel()
     var body: some Scene {
         WindowGroup {
-            LoginView()
+            WelcomeView()
+                .environmentObject(authViewModel)
         }
     }
 }
