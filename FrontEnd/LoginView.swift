@@ -1,10 +1,3 @@
-//
-//  LogInView.swift
-//  RecipeAI
-//
-//  Created on 6/27/23.
-//
-
 import SwiftUI
 
 struct LoginView: View {
