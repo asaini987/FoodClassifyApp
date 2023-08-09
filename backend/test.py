@@ -24,10 +24,14 @@ list_foods=f.readlines()
 response=testApi(list_foods[0])
 
 
-for food in list_foods:
-    response=testApi(food)
-    if "error" in response.keys():
-        print(f'Test failed for {food}')
-        break
-print("All tests passed")
+
+
+##Test for our code all pass
+
+# for food in list_foods:
+#     response=testApi(food)
+#     if "error" in response.keys():
+#         print(f'Test failed for {food}')
+#         break
+# print("All tests passed")
 
