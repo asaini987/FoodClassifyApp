@@ -11,9 +11,11 @@ def get_user_fav_foods(user_id):
     macros = db.get_a_food(foods)
     if macros:
         # return a dictionary and jsonify it
+        print("")
     else:
         # make API call to get the food's macros
-    return jsonify(response)
+        print("")
+    return jsonify()
 
 @app.route("/user/update/favfoods", methods = ["POST"])
 def update_user_fav_foods(fav_foods, user_id):
