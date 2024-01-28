@@ -1,13 +1,13 @@
 import SwiftUI
 
 struct HomeView: View {
-    
     var body: some View {
         VStack {
             Text("Recipe.AI")
                 .font(.system(.largeTitle, design: .rounded, weight: .medium))
                 .foregroundColor(.blue)
                 .fontWidth(.expanded)
+                .padding(.bottom)
             
             navBar
         }
@@ -23,7 +23,7 @@ struct HomeView: View {
                 .tabItem {
                     Label("Scan", systemImage: "barcode.viewfinder")
                 }
-            Text("Favorite Recipes Screen")
+            FoodAdderView(viewModel: FoodAdderViewModel())
                 .tabItem {
                     Label("Recipes", systemImage: "fork.knife.circle")
                 }
