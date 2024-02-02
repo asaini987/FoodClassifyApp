@@ -15,7 +15,7 @@ struct HomeView: View {
     
     var navBar: some View {
         TabView {
-            Text("Tracker Screen") //replace with respective View
+            Text("Tracker Screen") 
                 .tabItem {
                     Label("Macros", systemImage: "list.clipboard")
                 }
