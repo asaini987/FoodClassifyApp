@@ -7,8 +7,8 @@ def fetch_food(food):
 	querystring = {"title":f"{food}"}
 
 	headers = {
-		"X-RapidAPI-Key": "52fdffb06dmsh7982e277106ecdap1999bajsn9e3f14455072",
-		"X-RapidAPI-Host": "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com"
+		"API-Key": "####################################",
+		"API-Host": "####################################"
 	}
 
 	response = requests.get(url, headers=headers, params=querystring)
