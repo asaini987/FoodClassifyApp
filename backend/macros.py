@@ -1,7 +1,7 @@
 import requests
 
 def fetch_macros(fdc_id): #function sends fdc_id to API and fetches the macros and returns them as a dictionary
-    url = f"https://api.nal.usda.gov/fdc/v1/food/{fdc_id}?nutrients=203&nutrients=204&nutrients=205&nutrients=208&api_key=#####"
+    url = f"https://api.nal.usda.gov/fdc/v1/food/{fdc_id}?nutrients=203&nutrients=204&nutrients=205&nutrients=208&api_key=#######################"
     response = requests.get(url)
     food_data = response.json()
 
